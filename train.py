@@ -262,7 +262,7 @@ def train_g (gan: tf.keras.Model,
     
     perceptual_loss, style_loss = perc_style_loss(image,output,perceptual_model)
 
-    g_loss = l1_loss + 0.1*perceptual_loss  +  250 * style_loss + contrastive_loss
+    g_loss = l1_loss + 0.1*perceptual_loss  +  250 * style_loss
     
     d_fake = discriminator(output)
     adv_g_loss = -tf.reduce_mean(tf.reduce_mean(tf.math.log(tf.squeeze(d_fake)),axis=(1,2)))
@@ -325,7 +325,7 @@ def train_g_d (gan: tf.keras.Model,
     
     perceptual_loss, style_loss = perc_style_loss(image,output,perceptual_model)
 
-    g_loss = l1_loss + 0.1*perceptual_loss  +  250 * style_loss + contrastive_loss
+    g_loss = l1_loss + 0.1*perceptual_loss  +  250 * style_loss
     
     d_fake = discriminator(output)
     adv_g_loss = -tf.reduce_mean(tf.reduce_mean(tf.math.log(tf.squeeze(d_fake)),axis=(1,2)))
