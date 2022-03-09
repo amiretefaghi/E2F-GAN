@@ -38,7 +38,7 @@ To use the pre-trained models, download them from the following links then copy 
 ### 0.Quick Testing
 To hold a quick-testing of our inpaint model, download our pre-trained models of CelebA-HQ and put them into `./example`, then run:
 ```
-python3 test.py --model 3 --checkpoints ./example
+python3 test.py --pretrained_path ./pretrained_path --test_path ./example
 ```
 and check the results in `./example/results`.
 
