@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from networks import Fine_encoder_g, Coarse_encoder_g, Decoder_g, Discriminator, refinement_network, Decoder_g_natt
+from networks import Fine_encoder_g, Coarse_encoder_g, Decoder_g, Discriminator, refinement_network
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import *
