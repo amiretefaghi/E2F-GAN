@@ -1,4 +1,4 @@
-from networks import Fine_encoder_g, Coarse_encoder_g, Decoder_g, Discriminator, refinement_network, Decoder_g_natt
+from networks import Fine_encoder_g, Coarse_encoder_g, Decoder_g, Discriminator, refinement_network
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.layers import *
@@ -94,7 +94,7 @@ if __name__ == '__main__':
   parser.add_argument('--name', type=str, default='gan',
                       help='name of project')
 
-  parser.add_argument('--continue_training', type=bool, default=False,
+  parser.add_argument('--continue_training', type=bool, default=True,
                        help='continue training: load the latest model')
 
   parser.add_argument('--test_path', type=str,
