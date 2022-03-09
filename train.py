@@ -552,7 +552,7 @@ if __name__ == '__main__':
 
   device = torch.device("cuda")
   edge_generator = EdgeGenerator(use_spectral_norm=True)
-  edge_weights = torch.load('/content/drive/MyDrive/Mizani-implementation/EdgeModel_gen.pth')
+  edge_weights = torch.load('./EdgeModel_gen.pth')
   edge_generator.load_state_dict(edge_weights['generator'])
   edge_generator.to(device)
 
