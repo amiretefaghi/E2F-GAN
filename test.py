@@ -60,7 +60,7 @@ class GAN(tf.keras.Model):
       output = self.decoder([f1,f2])
       return output
 
-def build_networks (save_path, image_shape= (256,256) ,continue_training = False,dual=2,
+def build_networks (pretrained_path, image_shape= (256,256) ,continue_training = False,dual=2,
                     refinement=True,pretrained_fine_encoder=True, attention=True):
   gan = GAN(image_shape= image_shape,dual=dual,refinement=refinement,
             pretrained_fine_encoder=pretrained_fine_encoder,attention=attention)
@@ -72,17 +72,17 @@ def build_networks (save_path, image_shape= (256,256) ,continue_training = False
 
   if continue_training == True:
     if dual == 0:
-      gan.coarse_encoder.load_weights(f'{save_path}/coarse_encoder_latest_weights_dual{dual}.h5')
+      gan.coarse_encoder.load_weights(f'{pretrained_path}/coarse_encoder_latest_weights_dual{dual}.h5')
     elif dual == 1:
-      gan.fine_encoder.load_weights(f'{save_path}/fine_encoder_latest_weights_dual{dual}.h5')
+      gan.fine_encoder.load_weights(f'{pretrained_path}/fine_encoder_latest_weights_dual{dual}.h5')
     else:
-      gan.fine_encoder.load_weights(f'{save_path}/fine_encoder_latest_weights_dual{dual}.h5')
-      gan.coarse_encoder.load_weights(f'{save_path}/coarse_encoder_latest_weights_dual{dual}.h5')
+      gan.fine_encoder.load_weights(f'{pretrained_path}/fine_encoder_latest_weights_dual{dual}.h5')
+      gan.coarse_encoder.load_weights(f'{pretrained_path}/coarse_encoder_latest_weights_dual{dual}.h5')
 
     if refinement == True:
-      gan.refinement_network.load_weights(f'{save_path}/refinement_network_latest_weights_dual{dual}.h5')
+      gan.refinement_network.load_weights(f'{pretrained_path}/refinement_network_latest_weights_dual{dual}.h5')
     
-    gan.decoder.load_weights(f'{save_path}/decoder_latest_weights_dual{dual}.h5')
+    gan.decoder.load_weights(f'{pretrained_path}/decoder_latest_weights_dual{dual}.h5')
 
   return gan
 
@@ -106,6 +106,8 @@ if __name__ == '__main__':
 
   parser.add_argument('--save_path', type=str, default='./example/results',
                       help='outputs saving direction')
+  parser.add_argument('--pretrained_path', type=str, default='./weights',
+                      help='outputs saving direction')
   args = parser.parse_args()
 
 
@@ -118,6 +120,7 @@ if __name__ == '__main__':
   dual = args.dual
   refinement = args.refinement
   save_path = args.save_path
+  pretrained_path = args.pretrained_path
   try:
     os.mkdir(save_path)
   except:
@@ -126,12 +129,12 @@ if __name__ == '__main__':
 
   device = torch.device("cuda")
   edge_generator = EdgeGenerator(use_spectral_norm=True)
-  edge_weights = torch.load('/content/drive/MyDrive/Mizani-implementation/EdgeModel_gen.pth')
+  edge_weights = torch.load('./EdgeModel_gen.pth')
   edge_generator.load_state_dict(edge_weights['generator'])
   edge_generator.to(device)
 
 
-  gan = build_networks(save_path=save_path, image_shape = (256,256),
+  gan = build_networks(pretrained_path=pretrained_path, image_shape = (256,256),
                                       continue_training = continue_training,
                                       dual=dual, refinement=refinement,
                                       pretrained_fine_encoder = pretrained_fine_encoder)
