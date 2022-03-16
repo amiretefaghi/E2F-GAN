@@ -1,6 +1,6 @@
 **E2F-GAN: Eyes-to-Face Inpainting via Edge-Aware Coarse-to-Fine GANs**
 =======================================================================
-This is the Tensorflow 2.0 implementation of paper 'E2F-GAN: Eyes-to-Face Inpainting via Edge-Aware Coarse-to-Fine GANs' which is accepted by IEEE Access journal.
+This is the Tensorflow 2.0 implementation of [paper](https://doi.org/10.1109/ACCESS.2022.3160174) 'E2F-GAN: Eyes-to-Face Inpainting via Edge-Aware Coarse-to-Fine GANs' which is accepted by IEEE Access journal.
 
 **Introduction**
 ------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ Getting Started
 --------------------------
 To use the pre-trained models, download them from the following links then copy them to corresponding checkpoints folder, like `./gan/`.
 
-[CelebA-HQ](https://drive.google.com/drive/folders/1U22oNU8k1F_ORp76kVgkJARJYYfVpNB6?usp=sharing)
+[Weights](https://drive.google.com/drive/folders/1U22oNU8k1F_ORp76kVgkJARJYYfVpNB6?usp=sharing)
 
 ### 0.Quick Testing
 To hold a quick-testing of our inpaint model, download our pre-trained models of CelebA-HQ and put them into `./example`, then run:
