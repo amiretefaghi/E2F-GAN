@@ -151,6 +151,18 @@ if __name__ == '__main__':
     mask = np.array(mask).astype(float) / 255.0
     image = np.expand_dims(im,axis=0)
     mask = np.expand_dims(mask,axis=0)
+    img_gray = rgb2gray(im)
+    mask_gray = rgb2gray(mask).astype(bool)
+    edge = canny(img_gray,sigma=1,mask=mask_gray).astype(float)
+    mask_gray = torch.Tensor.unsqueeze(torch.tensor(mask_gray.astype(float)),0).float().cuda()
+    edge = torch.Tensor.unsqueeze(torch.tensor(edge),0).float().cuda()
+    img_gray = torch.Tensor.unsqueeze(torch.tensor(img_gray),0).float().cuda()
+    edges_masked = torch.Tensor.unsqueeze(edge * mask_gray,0)
+    images_masked = torch.Tensor.unsqueeze((img_gray * mask_gray) + (1 - mask_gray),0)
+    inputs = torch.cat((images_masked, edges_masked, torch.Tensor.unsqueeze(1 - mask_gray,0)), dim=1)
+    output = edge_generator(inputs)
+    pred_edge = torch.Tensor.squeeze(output).cpu().detach().numpy()
+    scatter = np.expand_dims(pred_edge,axis=-1)
     
     input1 = image*mask
 
