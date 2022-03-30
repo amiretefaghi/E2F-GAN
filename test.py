@@ -163,6 +163,7 @@ if __name__ == '__main__':
     output = edge_generator(inputs)
     pred_edge = torch.Tensor.squeeze(output).cpu().detach().numpy()
     scatter = np.expand_dims(pred_edge,axis=-1)
+    scatter = np.expand_dims(scatter,axis=0)
     
     input1 = image*mask
 
