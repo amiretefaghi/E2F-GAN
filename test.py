@@ -19,8 +19,7 @@ import torch
 from networks_edge import EdgeGenerator
 
 class GAN(tf.keras.Model):
-    def __init__(self,image_shape = (256,256),dual=2,refinement=True,
-                      pretrained_fine_encoder = False, attention=True):
+    def __init__(self,image_shape = (256,256),dual=2,refinement=True, attention=True):
         super(GAN, self).__init__()
         
         if dual == 0:
@@ -60,8 +59,8 @@ class GAN(tf.keras.Model):
       output = self.decoder([f1,f2])
       return output
 
-def build_networks (pretrained_path, image_shape= (256,256) ,continue_training = False,dual=2,
-                    refinement=True,pretrained_fine_encoder=True, attention=True):
+def build_networks (pretrained_path, image_shape= (256,256) ,continue_training = True,dual=2,
+                    refinement=True, attention=True):
   gan = GAN(image_shape= image_shape,dual=dual,refinement=refinement,attention=attention)
   discriminator_c = Discriminator(input_shape=fine_image_shape)
   discriminator_f = Discriminator(input_shape=fine_image_shape)
