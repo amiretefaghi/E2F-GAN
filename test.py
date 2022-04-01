@@ -62,13 +62,12 @@ class GAN(tf.keras.Model):
 
 def build_networks (pretrained_path, image_shape= (256,256) ,continue_training = False,dual=2,
                     refinement=True,pretrained_fine_encoder=True, attention=True):
-  gan = GAN(image_shape= image_shape,dual=dual,refinement=refinement,
-            pretrained_fine_encoder=pretrained_fine_encoder,attention=attention)
+  gan = GAN(image_shape= image_shape,dual=dual,refinement=refinement,attention=attention)
   discriminator_c = Discriminator(input_shape=fine_image_shape)
   discriminator_f = Discriminator(input_shape=fine_image_shape)
 
-  if pretrained_fine_encoder == True:
-    gan.fine_encoder.load_weights(f'./fine_encoder_100_weights.h5')
+#   if pretrained_fine_encoder == True:
+#     gan.fine_encoder.load_weights(f'./fine_encoder_100_weights.h5')
 
   if continue_training == True:
     if dual == 0:
@@ -136,8 +135,7 @@ if __name__ == '__main__':
 
   gan = build_networks(pretrained_path=pretrained_path, image_shape = (256,256),
                                       continue_training = continue_training,
-                                      dual=dual, refinement=refinement,
-                                      pretrained_fine_encoder = pretrained_fine_encoder)
+                                      dual=dual, refinement=refinement)
   
   list_name = listdir(test_path + '/' + 'images')
 
